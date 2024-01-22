@@ -1,24 +1,21 @@
+import kotlin.math.max
 import kotlin.math.min
 
 fun maxArea(height: IntArray): Int {
-    val map: Map<Int, Int> = mutableMapOf()
+    var amount = 0
+    var left = 0
+    var right = height.size - 1
 
-    var delta: Int = 0
-    var left: Int = 0
-    var right: Int = 0
-    var amount: Int = 0
-    for (i in height.indices) {
-        if (i == 0) {
-            right = 1
-            amount = 1 * min(height[0], height[1])
-            break
+    while (left < right) {
+        if (height[left] < height[right]) {
+            amount = max(amount, height[left] * (right - left))
+            left += 1
+        } else {
+            amount = max(amount, height[right] * (right - left))
+            right -= 1
         }
-
     }
-
-    println(amount)
-
-    return 0
+    return amount
 }
 
 fun main() {
